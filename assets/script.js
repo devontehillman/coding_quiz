@@ -47,7 +47,7 @@ let questions = [
     }
 ]
 
-const SCORE_POINTS = 100
+const SCORE_POINTS = 1
 const MAX_QUSTIONS = 4
 
 startGame = () => {
@@ -58,10 +58,10 @@ startGame = () => {
 }
 
 getNewQuestion = () => { 
-    if (availableQuestions.length === 0 || questionCounter > MAX_QUSTIONS){// stores score of quiz
+    if (availableQuestions.length === 0 || questionCounter > MAX_QUSTIONS || timerDone === true){// stores score of quiz
         localStorage.setItem("mostRectentScore", score);
 
-        return window.location.assign('/end.html')
+        return window.location.assign('score.html')
     }
 
     questionCounter++;
@@ -111,18 +111,25 @@ incrementScore = num => {
     score +=num
     scoreText.innerText = score; // update the score
 }
-var totalSeconds = 0;
+var totalSeconds = 4;
+var timerDone = false;
 
-function setTime() {
+function setTime(x) {
     var timerInterval = setInterval(function() {
-      totalSeconds++;
-      return timerText.innerText = totalSeconds;
+        totalSeconds--;
+        timerText.textContent = totalSeconds;
+    
+        if(totalSeconds === 0) {
+          clearInterval(timerInterval);
+          timerDone = true;
+          return  timerDone;
+        }
     }, 1000);
   }
 
 
 
-setTime()
+setTime(timerDone)
 startGame()
 
 
