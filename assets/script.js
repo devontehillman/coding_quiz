@@ -3,6 +3,7 @@ const choices  = Array.from(document.querySelectorAll('.choice-text'));
 const progressText  = document.querySelector('#ProgressText');
 const scoreText = document.querySelector('#score');
 const progressBarFull  = document.querySelector('#progressBarFull');
+const timerText = document.querySelector('#countDown');
 
 let currentQuestion = {}
 let acceptingAnswers = true 
@@ -110,9 +111,19 @@ incrementScore = num => {
     score +=num
     scoreText.innerText = score; // update the score
 }
+var totalSeconds = 0;
 
+function setTime() {
+    var timerInterval = setInterval(function() {
+      totalSeconds++;
+      return timerText.innerText = totalSeconds;
+    }, 1000);
+  }
+
+
+
+setTime()
 startGame()
-
 
 
 
